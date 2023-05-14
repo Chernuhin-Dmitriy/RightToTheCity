@@ -82,7 +82,7 @@ class CategoryActivity : AppCompatActivity(), Serializable {
         )),
         Category("8", "Непорядок", R.drawable.disorder, listOf(
             Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
-            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.2", "Подкатегори 1.2", R.drawable.dog, null),
             Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
                 Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
                 Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
