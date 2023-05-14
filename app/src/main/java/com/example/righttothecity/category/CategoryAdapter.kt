@@ -18,7 +18,14 @@ class CategoryAdapter(private val categories: List<Category>) :
 
         fun bind(category: Category) {
             iconImageView.setImageResource(category.image)
-            titleTextView.text = category.name
+
+            if(category.name.length > 12){  // Укорачиваем названия
+                titleTextView.text = category.name.dropLast(category.name.length - 9).plus("...")
+            }
+            else{
+                titleTextView.text = category.name
+            }
+
             itemView.setOnClickListener {
                 val subcategories = category.subcategories
                 if (subcategories!!.isNotEmpty()) {

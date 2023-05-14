@@ -151,7 +151,7 @@ class YandexMapActivity : AppCompatActivity() {
             val point = Point(latitude, longitude)
             mapObjectCollection!!.clear()
             val placemark = mapObjectCollection!!.addPlacemark(point)
-            placemark.setIcon(ImageProvider.fromResource(this, R.drawable.map_triangle))
+            placemark.setIcon(ImageProvider.fromResource(this, R.drawable.marker))
         }
     }
 

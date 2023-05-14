@@ -8,11 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.righttothecity.R
+import java.io.Serializable
 
-class CategoryActivity : AppCompatActivity() {
+class CategoryActivity : AppCompatActivity(), Serializable {
 
     companion object {
         const val EXTRA_CATEGORIES = "extra_categories"
@@ -21,30 +23,91 @@ class CategoryActivity : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CategoryAdapter
 
+    var categories = arrayOf(
+        Category("1", "Здание/дом/сооружение", R.drawable.house, listOf(
+            Category("1.1", "Пирожок 1.1", R.drawable.dog, null),
+            Category("1.2", "Подкатегорияю 1.2", R.drawable.dog, null),
+            Category("1.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("1.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("1.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        )),
+        Category("2", "Улица", R.drawable.ulitsa, listOf(
+            Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
+            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        )),
+        Category("3", "Общественное пространство", R.drawable.dvor, listOf(
+            Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
+            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        )),
+        Category("4", "Коммуникации", R.drawable.communications, listOf(
+            Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
+            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        )),
+        Category("5", "Животные", R.drawable.dog, listOf(
+            Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
+            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        )),
+        Category("6", "Растения/природа", R.drawable.plants, listOf(
+            Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
+            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        )),
+        Category("7", "Заведения/учреждения", R.drawable.zavedeniya, listOf(
+            Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
+            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        )),
+        Category("8", "Непорядок", R.drawable.disorder, listOf(
+            Category("2.1", "Подкатегория 1.1", R.drawable.dog, null),
+            Category("2.2", "Подкатегория 1.2", R.drawable.dog, null),
+            Category("2.3", "Подкатегория 1.3", R.drawable.dog, listOf(
+                Category("2.3.1", "Подкатегория 1.3.1", R.drawable.dog, null),
+                Category("2.3.2", "Подкатегория 1.3.2", R.drawable.dog, null)
+            ))
+        ))
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
-        // Получение переданных категорий из интента
-        var categories = arrayOf(
-            Category("1", "Категория 1", R.drawable.plants, listOf(
-                Category("1.1", "Подкатегория 1.1", R.drawable.animals, null),
-                Category("1.2", "Подкатегория 1.2", R.drawable.animals, null),
-                Category("1.3", "Подкатегория 1.3", R.drawable.animals, listOf(
-                    Category("1.3.1", "Подкатегория 1.3.1", R.drawable.animals, null),
-                    Category("1.3.2", "Подкатегория 1.3.2", R.drawable.animals, null)
-                ))
-            )),
-            Category("2", "Категория 2", R.drawable.animals, listOf(
-                Category("2.1", "Подкатегория 2.1", R.drawable.animals, null),
-                Category("2.2", "Подкатегория 2.2", R.drawable.animals, null)
-            ))
-        )
+
+        if (intent.hasExtra(EXTRA_CATEGORIES)) { //При передаче
+            categories = intent.getSerializableExtra(EXTRA_CATEGORIES) as Array<Category>
+            //selectedCategory = getSelectedCategory(categoryId)
+        }
+        //if(EXTRA_CATEGORIES != "extra_categories"){
+            //Получение переданных категорий из интента
+            //categories = intent.getSerializableExtra(EXTRA_CATEGORIES) as Array<Category>
+        //}
 
 
         // Настройка RecyclerView
         recyclerView = findViewById(R.id.category_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.layoutManager = GridLayoutManager(this, 3)//LinearLayoutManager(this)
         adapter = CategoryAdapter(categories.toList())
         recyclerView.adapter = adapter
     }
